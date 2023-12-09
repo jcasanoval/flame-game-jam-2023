@@ -5,6 +5,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/painting.dart';
 import 'package:game_jam_2024/game/entities/fireplace/fireplace.dart';
 import 'package:game_jam_2024/game/game.dart';
+import 'package:game_jam_2024/game/inventory/bloc/inventory_bloc.dart';
 import 'package:game_jam_2024/l10n/l10n.dart';
 
 class VeryGoodFlameGame extends FlameGame
@@ -13,9 +14,12 @@ class VeryGoodFlameGame extends FlameGame
     required this.l10n,
     required this.effectPlayer,
     required this.textStyle,
+    required this.inventoryBloc,
   }) {
     images.prefix = '';
   }
+
+  final InventoryBloc inventoryBloc;
 
   final AppLocalizations l10n;
 
