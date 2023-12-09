@@ -92,6 +92,10 @@ class _GameViewState extends State<GameView> {
             },
           ),
         ),
+        const Align(
+          alignment: Alignment.bottomCenter,
+          child: LogHud(),
+        ),
       ],
     );
   }
