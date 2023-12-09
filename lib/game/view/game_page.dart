@@ -17,10 +17,17 @@ class GamePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) {
-        return AudioCubit(audioCache: context.read<PreloadCubit>().audio);
-      },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) {
+            return AudioCubit(audioCache: context.read<PreloadCubit>().audio);
+          },
+        ),
+        BlocProvider(
+          create: (context) => InventoryBloc(),
+        ),
+      ],
       child: const Scaffold(
         body: SafeArea(child: GameView()),
       ),
@@ -67,6 +74,7 @@ class _GameViewState extends State<GameView> {
           l10n: context.l10n,
           effectPlayer: context.read<AudioCubit>().effectPlayer,
           textStyle: textStyle,
+          inventoryBloc: context.read<InventoryBloc>(),
         );
     return Stack(
       children: [
@@ -83,6 +91,10 @@ class _GameViewState extends State<GameView> {
               );
             },
           ),
+        ),
+        const Align(
+          alignment: Alignment.bottomCenter,
+          child: LogHud(),
         ),
       ],
     );
