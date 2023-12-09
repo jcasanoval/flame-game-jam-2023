@@ -10,6 +10,7 @@ class Unicorn extends PositionedEntity with HasGameRef, CollisionCallbacks {
   Unicorn({
     required super.position,
   }) : super(
+          priority: 10,
           anchor: Anchor.center,
           size: Vector2.all(32),
           behaviors: [
@@ -22,6 +23,7 @@ class Unicorn extends PositionedEntity with HasGameRef, CollisionCallbacks {
                 size: Vector2.all(32),
               )..paint = (Paint()..color = Colors.red),
             ),
+            DropLogBehavior(),
           ],
         );
 
