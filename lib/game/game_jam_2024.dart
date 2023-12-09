@@ -4,7 +4,7 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/painting.dart';
-import 'package:game_jam_2024/game/entities/fireplace/fireplace.dart';
+import 'package:game_jam_2024/game/entities/house/wall.dart';
 import 'package:game_jam_2024/game/game.dart';
 import 'package:game_jam_2024/l10n/l10n.dart';
 
@@ -45,6 +45,8 @@ class VeryGoodFlameGame extends FlameGame
         Tree(position: (size / 2) + Vector2(-150, 0)),
         Tree(position: (size / 2) + Vector2(-180, 20)),
         Fireplace(position: (size / 2)..sub(Vector2(20, 20))),
+        Wall(position: (size / 2)..add(Vector2(0, 50))),
+        Wall(position: (size / 2)..add(Vector2(20, 50))),
       ],
     );
 

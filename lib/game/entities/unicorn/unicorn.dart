@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:game_jam_2024/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:game_jam_2024/gen/assets.gen.dart';
 
-class Unicorn extends PositionedEntity with HasGameRef {
+class Unicorn extends PositionedEntity with HasGameRef, CollisionCallbacks {
   Unicorn({
     required super.position,
   }) : super(
@@ -16,6 +16,13 @@ class Unicorn extends PositionedEntity with HasGameRef {
           behaviors: [
             TappingBehavior(),
             MovingBehavior(),
+            WallCollisionBehavior(),
+            PropagatingCollisionBehavior(
+              RectangleHitbox(
+                isSolid: true,
+                size: Vector2.all(32),
+              )..paint = (Paint()..color = Colors.red),
+            ),
             DropLogBehavior(),
           ],
         );
@@ -49,7 +56,9 @@ class Unicorn extends PositionedEntity with HasGameRef {
         animation: animation,
         size: size,
       ),
-      RectangleHitbox(isSolid: true),
+      RectangleHitbox(isSolid: true, size: size)
+        ..debugColor = Colors.red
+        ..paint = (Paint()..color = Colors.red),
     ]);
 
     resetAnimation();
