@@ -4,6 +4,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/material.dart';
+import 'package:game_jam_2024/game/entities/entities.dart';
 import 'package:game_jam_2024/game/entities/wall/wall.dart';
 
 class House extends PositionedEntity with CollisionCallbacks {
@@ -62,6 +63,7 @@ class House extends PositionedEntity with CollisionCallbacks {
         position: Vector2(0, -55),
         size: Vector2(96, 20),
       ),
+      Fireplace(position: Vector2(0, 0)),
     ]);
   }
 }
