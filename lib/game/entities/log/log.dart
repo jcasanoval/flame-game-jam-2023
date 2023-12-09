@@ -3,17 +3,18 @@ import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
-import 'package:flutter/material.dart';
 import 'package:game_jam_2024/game/game.dart';
+import 'package:game_jam_2024/gen/assets.gen.dart';
 
 export 'behaviors/behaviors.dart';
 
-class Log extends PositionedEntity with CollisionCallbacks {
+class Log extends PositionedEntity
+    with CollisionCallbacks, HasGameRef<VeryGoodFlameGame> {
   Log({
     required super.position,
   }) : super(
           anchor: Anchor.center,
-          size: Vector2(10, 5),
+          size: Vector2(20, 7),
           behaviors: [
             PickableLogBehavior(),
           ],
@@ -27,15 +28,11 @@ class Log extends PositionedEntity with CollisionCallbacks {
 
   @override
   void update(double dt) {
-    log.paint.color = nearPlayer ? Colors.brown : Colors.brown[300]!;
+    _spriteComponent.opacity = nearPlayer ? 0.7 : 1;
     super.update(dt);
   }
 
-  late final log = RectangleComponent(
-    paint: Paint(),
-    anchor: Anchor.center,
-    size: super.size,
-  );
+  late SpriteComponent _spriteComponent;
 
   @override
   void onCollision(Set<Vector2> points, PositionComponent other) {
@@ -52,9 +49,18 @@ class Log extends PositionedEntity with CollisionCallbacks {
   }
 
   @override
-  FutureOr<void> onLoad() {
-    addAll([
-      log,
+  FutureOr<void> onLoad() async {
+    final sprite = await gameRef.loadSprite(
+      Assets.images.log.path,
+      srcSize: Vector2(20, 7),
+    );
+
+    await addAll([
+      _spriteComponent = SpriteComponent(
+        sprite: sprite,
+        size: super.size,
+        anchor: Anchor.center,
+      ),
       RectangleHitbox()
         ..anchor = Anchor.center
         ..isSolid = true,

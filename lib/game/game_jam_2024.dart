@@ -32,7 +32,7 @@ class VeryGoodFlameGame extends FlameGame
   int counter = 0;
 
   @override
-  Color backgroundColor() => const Color(0xFF2A48DF);
+  Color backgroundColor() => const Color(0xFFFEFEFE);
 
   @override
   Future<void> onLoad() async {
