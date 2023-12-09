@@ -24,9 +24,7 @@ class GamePage extends StatelessWidget {
             return AudioCubit(audioCache: context.read<PreloadCubit>().audio);
           },
         ),
-        BlocProvider(
-          create: (context) => InventoryBloc(),
-        ),
+        BlocProvider(create: (context) => InventoryBloc()),
       ],
       child: const Scaffold(
         body: SafeArea(child: GameView()),

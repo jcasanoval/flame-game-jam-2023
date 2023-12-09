@@ -51,14 +51,18 @@ class VeryGoodFlameGame extends FlameGame
 
     final camera = CameraComponent(world: world);
     await addAll([
-      FlameBlocProvider<InventoryBloc, InventoryState>.value(
-        value: _inventoryBloc,
-        children: [world],
+      FlameMultiBlocProvider(
+        providers: [
+          FlameBlocProvider<InventoryBloc, InventoryState>.value(
+            value: _inventoryBloc,
+          ),
+        ],
+        children: [world, camera],
       ),
-      camera,
     ]);
 
     camera.viewfinder.position = size / 2;
     camera.viewfinder.zoom = 2;
+    camera.viewport.add(DarknessOverlayComponent(size: size));
   }
 }
