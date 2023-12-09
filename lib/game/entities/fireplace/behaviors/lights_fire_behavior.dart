@@ -15,7 +15,6 @@ class LightsFiresBehavior extends Behavior<Fireplace> with KeyboardHandler {
       if (timeLit > 5) {
         parent.lit = true;
       }
-      return false;
     }
 
     return true;

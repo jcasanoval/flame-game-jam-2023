@@ -48,7 +48,7 @@ class Unicorn extends PositionedEntity with HasGameRef {
         animation: animation,
         size: size,
       ),
-      RectangleHitbox(),
+      RectangleHitbox(isSolid: true),
     ]);
 
     resetAnimation();
