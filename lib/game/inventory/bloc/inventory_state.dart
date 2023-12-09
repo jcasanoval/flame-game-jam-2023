@@ -10,7 +10,7 @@ class InventoryState extends Equatable {
 
   /// The maximum number of items (such as logs) that can be stored in the
   /// inventory simultaneously.
-  static const _inventorySize = 4;
+  static const _inventorySize = 2;
 
   /// The number of logs in the inventory.
   final int logs;

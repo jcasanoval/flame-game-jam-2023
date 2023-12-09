@@ -17,15 +17,15 @@ class LogHud extends StatelessWidget {
           color: Colors.black.withOpacity(0.5),
           borderRadius: BorderRadius.circular(8),
         ),
-        child: BlocSelector<InventoryBloc, InventoryState, int>(
-          selector: (state) {
-            return state.logs;
-          },
-          builder: (context, logs) {
+        child: BlocBuilder<InventoryBloc, InventoryState>(
+          builder: (context, state) {
+            final logs = state.logs;
+            final isFull = state.isFull;
+
             return Text(
               '$logs',
-              style: const TextStyle(
-                color: Colors.white,
+              style: TextStyle(
+                color: isFull ? Colors.red : Colors.white,
                 fontSize: 24,
               ),
             );

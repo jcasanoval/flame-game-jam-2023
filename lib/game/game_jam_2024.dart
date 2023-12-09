@@ -38,6 +38,8 @@ class VeryGoodFlameGame extends FlameGame
     final world = World(
       children: [
         Log(position: (size / 2) + Vector2(50, 0)),
+        Log(position: (size / 2) + Vector2(150, -50)),
+        Log(position: (size / 2) + Vector2(-35, -50)),
         Unicorn(position: size / 2),
         Fireplace(position: (size / 2)..sub(Vector2(20, 20))),
       ],

@@ -14,7 +14,7 @@ class PickableLogBehavior extends Behavior<Log>
   @override
   bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     if (keysPressed.contains(LogicalKeyboardKey.space)) {
-      if (parent.nearPlayer) {
+      if (parent.nearPlayer && !bloc.state.isFull) {
         bloc.add(const LogAddedInventoryEvent());
         parent.parent?.remove(parent);
       }
