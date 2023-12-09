@@ -8,15 +8,13 @@ class LogHud extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: 0,
-      left: 0,
-      child: Container(
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.5),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Padding(
         padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.5),
-          borderRadius: BorderRadius.circular(8),
-        ),
         child: BlocBuilder<InventoryBloc, InventoryState>(
           builder: (context, state) {
             final logs = state.logs;
