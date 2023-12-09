@@ -17,7 +17,10 @@ class Unicorn extends PositionedEntity with HasGameRef, CollisionCallbacks {
             MovingBehavior(),
             WallCollisionBehavior(),
             PropagatingCollisionBehavior(
-              RectangleHitbox(isSolid: true, size: Vector2.all(32)),
+              RectangleHitbox(
+                isSolid: true,
+                size: Vector2.all(32),
+              )..paint = (Paint()..color = Colors.red),
             ),
           ],
         );
@@ -51,7 +54,9 @@ class Unicorn extends PositionedEntity with HasGameRef, CollisionCallbacks {
         animation: animation,
         size: size,
       ),
-      RectangleHitbox(isSolid: true, size: size)..paint = Paint(),
+      RectangleHitbox(isSolid: true, size: size)
+        ..debugColor = Colors.red
+        ..paint = (Paint()..color = Colors.red),
     ]);
 
     resetAnimation();
