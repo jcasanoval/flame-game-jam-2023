@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
+import 'package:game_jam_2024/game/entities/house/wall.dart';
 import 'package:game_jam_2024/game/game.dart';
 import 'package:game_jam_2024/gen/assets.gen.dart';
 
@@ -36,10 +36,8 @@ class Tree extends PositionedEntity with HasGameRef<VeryGoodFlameGame> {
         sprite: sprite,
         size: super.size,
         anchor: Anchor.center,
-      ),
-      RectangleHitbox()
-        ..anchor = Anchor.center
-        ..isSolid = true,
+      )..priority = 10,
+      Wall(position: Vector2(10, 30), size: Vector2(20, 10)),
     ]);
   }
 }
