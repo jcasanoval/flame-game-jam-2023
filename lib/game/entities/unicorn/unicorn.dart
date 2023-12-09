@@ -3,19 +3,20 @@ import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/material.dart';
-import 'package:game_jam_2024/game/entities/unicorn/behaviors/moving_behavior.dart';
-import 'package:game_jam_2024/game/entities/unicorn/behaviors/tapping_behavior.dart';
+import 'package:game_jam_2024/game/entities/unicorn/behaviors/behaviors.dart';
 import 'package:game_jam_2024/gen/assets.gen.dart';
 
 class Unicorn extends PositionedEntity with HasGameRef {
   Unicorn({
     required super.position,
   }) : super(
+          priority: 10,
           anchor: Anchor.center,
           size: Vector2.all(32),
           behaviors: [
             TappingBehavior(),
             MovingBehavior(),
+            DropLogBehavior(),
           ],
         );
 

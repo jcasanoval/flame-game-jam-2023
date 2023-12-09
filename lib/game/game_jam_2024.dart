@@ -27,6 +27,8 @@ class VeryGoodFlameGame extends FlameGame
 
   final TextStyle textStyle;
 
+  late final World world;
+
   int counter = 0;
 
   @override
@@ -34,7 +36,7 @@ class VeryGoodFlameGame extends FlameGame
 
   @override
   Future<void> onLoad() async {
-    final world = World(
+    world = World(
       children: [
         Log(position: (size / 2) + Vector2(50, 0)),
         Log(position: (size / 2) + Vector2(150, -50)),
