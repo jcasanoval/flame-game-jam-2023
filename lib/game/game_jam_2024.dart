@@ -42,6 +42,8 @@ class VeryGoodFlameGame extends FlameGame
         Log(position: (size / 2) + Vector2(150, -50)),
         Log(position: (size / 2) + Vector2(-35, -50)),
         Unicorn(position: size / 2),
+        Tree(position: (size / 2) + Vector2(-150, 0)),
+        Tree(position: (size / 2) + Vector2(-180, 20)),
         Fireplace(position: (size / 2)..sub(Vector2(20, 20))),
       ],
     );

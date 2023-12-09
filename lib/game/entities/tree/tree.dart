@@ -6,18 +6,14 @@ import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:game_jam_2024/game/game.dart';
 import 'package:game_jam_2024/gen/assets.gen.dart';
 
-export 'behaviors/behaviors.dart';
-
-class Log extends PositionedEntity
-    with CollisionCallbacks, HasGameRef<VeryGoodFlameGame> {
-  Log({
+class Tree extends PositionedEntity with HasGameRef<VeryGoodFlameGame> {
+  Tree({
     required super.position,
   }) : super(
           anchor: Anchor.center,
-          size: Vector2(20, 7),
-          behaviors: [
-            PickableLogBehavior(),
-          ],
+          size: Vector2(60, 60),
+          behaviors: [],
+          priority: 11,
         );
 
   /// Wether the log is near the player or not.
@@ -26,33 +22,13 @@ class Log extends PositionedEntity
   /// it.
   bool nearPlayer = false;
 
-  @override
-  void update(double dt) {
-    _spriteComponent.opacity = nearPlayer ? 0.7 : 1;
-    super.update(dt);
-  }
-
   late SpriteComponent _spriteComponent;
-
-  @override
-  void onCollision(Set<Vector2> points, PositionComponent other) {
-    if (other is Unicorn) {
-      nearPlayer = true;
-    }
-    super.onCollision(points, other);
-  }
-
-  @override
-  void onCollisionEnd(PositionComponent other) {
-    nearPlayer = false;
-    super.onCollisionEnd(other);
-  }
 
   @override
   FutureOr<void> onLoad() async {
     final sprite = await gameRef.loadSprite(
-      Assets.images.log.path,
-      srcSize: Vector2(96, 33),
+      Assets.images.tree.path,
+      srcSize: Vector2(96, 96),
     );
 
     await addAll([
