@@ -1,6 +1,6 @@
 import 'package:flame/game.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
-import 'package:game_jam_2024/game/entities/house/wall.dart';
+import 'package:game_jam_2024/game/entities/wall/wall.dart';
 import 'package:game_jam_2024/game/game.dart';
 
 class WallCollisionBehavior extends CollisionBehavior<Wall, Unicorn> {
