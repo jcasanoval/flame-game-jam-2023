@@ -17,7 +17,6 @@ class WallCollisionBehavior extends CollisionBehavior<Wall, Unicorn> {
   }
 
   Vector2 restrictVelocity(Vector2 velocity) {
-    print(collidedWalls.length);
     collidedWalls.forEach((wall) {
       final topEdge = wall.absoluteTopLeftPosition.y - wall.size.y / 2;
       final playerBottomEdge = parent.position.y + parent.size.y / 2;
@@ -43,29 +42,24 @@ class WallCollisionBehavior extends CollisionBehavior<Wall, Unicorn> {
       ].reduce((value, element) => value < element ? value : element);
 
       if (min == bottomDistance && velocity.y > 0) {
-        print('bottom');
         parent.position.y -= 0.1;
         velocity.y = 0;
       }
 
       if (min == topDistance && velocity.y < 0) {
-        print('top');
         parent.position.y += 0.1;
         velocity.y = 0;
       }
 
       if (min == leftDistance && velocity.x < 0) {
-        print('left');
         parent.position.x += 0.1;
         velocity.x = 0;
       }
 
       if (min == rightDistance && velocity.x > 0) {
-        print('right');
         parent.position.x -= 0.1;
         velocity.x = 0;
       }
-      print(min);
     });
     return velocity;
   }
