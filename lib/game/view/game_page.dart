@@ -3,7 +3,6 @@ import 'package:flame_audio/bgm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_jam_2024/game/game.dart';
-import 'package:game_jam_2024/gen/assets.gen.dart';
 import 'package:game_jam_2024/l10n/l10n.dart';
 import 'package:game_jam_2024/loading/cubit/cubit.dart';
 
@@ -47,7 +46,7 @@ class _GameViewState extends State<GameView> {
   void initState() {
     super.initState();
     bgm = context.read<AudioCubit>().bgm;
-    bgm.play(Assets.audio.background);
+    // bgm.play(Assets.audio.background); // TODO: auto play music
   }
 
   @override

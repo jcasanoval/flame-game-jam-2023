@@ -1,7 +1,9 @@
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/material.dart';
+import 'package:game_jam_2024/game/entities/unicorn/behaviors/moving_behavior.dart';
 import 'package:game_jam_2024/game/entities/unicorn/behaviors/tapping_behavior.dart';
 import 'package:game_jam_2024/gen/assets.gen.dart';
 
@@ -13,6 +15,7 @@ class Unicorn extends PositionedEntity with HasGameRef {
           size: Vector2.all(32),
           behaviors: [
             TappingBehavior(),
+            MovingBehavior(),
           ],
         );
 
@@ -31,7 +34,7 @@ class Unicorn extends PositionedEntity with HasGameRef {
   @override
   Future<void> onLoad() async {
     final animation = await gameRef.loadSpriteAnimation(
-      'assets/images/fire_lit.png',
+      Assets.images.unicornAnimation.path,
       SpriteAnimationData.sequenced(
         amount: 16,
         stepTime: 0.1,
@@ -40,12 +43,13 @@ class Unicorn extends PositionedEntity with HasGameRef {
       ),
     );
 
-    await add(
+    await addAll([
       _animationComponent = SpriteAnimationComponent(
         animation: animation,
         size: size,
       ),
-    );
+      RectangleHitbox(),
+    ]);
 
     resetAnimation();
   }
