@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/services.dart';
+import 'package:game_jam_2024/game/entities/unicorn/behaviors/behaviors.dart';
 
 const speed = 45.0;
 const topSpeed = 125.0;
@@ -25,6 +26,10 @@ class MovingBehavior<E extends PositionedEntity> extends Behavior<E>
         ? (velocity.length > minSpeed ? velocity * friction : Vector2.zero())
         : velocity + (acceleration.normalized() * speed))
       ..clampLength(0, topSpeed);
+
+    velocity =
+        parent.findBehavior<WallCollisionBehavior>().restrictVelocity(velocity);
+
     parent.position += velocity * dt;
   }
 
