@@ -6,7 +6,6 @@ import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/painting.dart';
 import 'package:game_jam_2024/game/entities/fireplace/fireplace.dart';
 import 'package:game_jam_2024/game/game.dart';
-import 'package:game_jam_2024/game/inventory/bloc/inventory_bloc.dart';
 import 'package:game_jam_2024/l10n/l10n.dart';
 
 class VeryGoodFlameGame extends FlameGame
