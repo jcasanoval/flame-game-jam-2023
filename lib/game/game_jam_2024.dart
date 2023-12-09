@@ -5,7 +5,6 @@ import 'package:flame/game.dart';
 import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/painting.dart';
 import 'package:game_jam_2024/game/entities/house/house.dart';
-import 'package:game_jam_2024/game/entities/house/wall.dart';
 import 'package:game_jam_2024/game/game.dart';
 import 'package:game_jam_2024/l10n/l10n.dart';
 
