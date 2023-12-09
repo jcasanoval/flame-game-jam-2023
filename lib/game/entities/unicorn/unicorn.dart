@@ -59,6 +59,10 @@ class Unicorn extends PositionedEntity with HasGameRef, CollisionCallbacks {
       RectangleHitbox(isSolid: true, size: size)
         ..debugColor = Colors.red
         ..paint = (Paint()..color = Colors.red),
+      // RectangleComponent(
+      //   size: size,
+      //   paint: Paint()..color = Colors.green,
+      // ),
     ]);
 
     resetAnimation();
