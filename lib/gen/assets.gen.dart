@@ -60,8 +60,15 @@ class $AssetsImagesGen {
   AssetGenImage get playerCharacter =>
       const AssetGenImage('assets/images/player_character.png');
 
+  /// File path: assets/images/q_hint.png
+  AssetGenImage get qHint => const AssetGenImage('assets/images/q_hint.png');
+
   /// File path: assets/images/sign.png
   AssetGenImage get sign => const AssetGenImage('assets/images/sign.png');
+
+  /// File path: assets/images/space_hint.png
+  AssetGenImage get spaceHint =>
+      const AssetGenImage('assets/images/space_hint.png');
 
   /// File path: assets/images/title.jpg
   AssetGenImage get title => const AssetGenImage('assets/images/title.jpg');
@@ -80,7 +87,9 @@ class $AssetsImagesGen {
         fireUnlit,
         log,
         playerCharacter,
+        qHint,
         sign,
+        spaceHint,
         title,
         tree,
         winterVillage
