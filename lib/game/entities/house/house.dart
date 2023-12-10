@@ -1,5 +1,6 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/particles.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/material.dart';
@@ -109,6 +110,25 @@ class House extends PositionedEntity
     if (isNight && !fireLit) {
       value -= dt;
       debugText.text = '$value';
+    }
+
+    if (fireLit) {
+      if (random.nextDouble() < 0.3) {
+        add(
+          ParticleSystemComponent(
+            priority: 100,
+            particle: AcceleratedParticle(
+              lifespan: random.nextDouble() * 3,
+              position: Vector2(-30 + -2 + random.nextDouble() * 2, -30),
+              speed: Vector2(0, -70 + (random.nextDouble() * 10)),
+              child: CircleParticle(
+                radius: 10 + random.nextDouble() * 10,
+                paint: Paint()..color = Colors.grey.withOpacity(0.3),
+              ),
+            ),
+          ),
+        );
+      }
     }
     _thermometer.size.y = 50 * (value / _initialValue);
     _thermometerPaint.color = _thermometerColors[
