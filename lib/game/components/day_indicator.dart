@@ -13,11 +13,11 @@ class DayIndicator extends PositionComponent
   DayIndicator() : super(position: Vector2.all(16));
 
   TextComponent textComponent = TextComponent(
-    position: Vector2(20, 0),
+    position: Vector2(20, 5),
     textRenderer: TextPaint(
-      style: const TextStyle(
+      style: TextStyle(
         fontSize: 48,
-        color: Colors.black,
+        color: Colors.brown.shade600,
       ),
     ),
   );
