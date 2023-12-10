@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:game_jam_2024/game/calendar/cubit/calendar_cubit.dart';
 import 'package:game_jam_2024/game/entities/house/house.dart';
 import 'package:game_jam_2024/game/game.dart';
+import 'package:game_jam_2024/game_over/game_over.dart';
 import 'package:game_jam_2024/l10n/l10n.dart';
 
 class VeryGoodFlameGame extends FlameGame
@@ -16,7 +17,9 @@ class VeryGoodFlameGame extends FlameGame
     required this.effectPlayer,
     required this.textStyle,
     required InventoryBloc inventoryBloc,
-  }) : _inventoryBloc = inventoryBloc {
+    required GameOverCubit gameOverCubit,
+  })  : _inventoryBloc = inventoryBloc,
+        _gameOverCubit = gameOverCubit {
     images.prefix = '';
   }
 
@@ -24,6 +27,7 @@ class VeryGoodFlameGame extends FlameGame
   bool get debugMode => false;
 
   final InventoryBloc _inventoryBloc;
+  final GameOverCubit _gameOverCubit;
 
   final AppLocalizations l10n;
 
@@ -68,6 +72,9 @@ class VeryGoodFlameGame extends FlameGame
           FlameBlocProvider<CalendarCubit, CalendarState>(
             create: CalendarCubit.new,
           ),
+          FlameBlocProvider<GameOverCubit, GameOverState>.value(
+            value: _gameOverCubit,
+          )
         ],
         children: [world, camera],
       ),
