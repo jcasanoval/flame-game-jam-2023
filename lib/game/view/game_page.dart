@@ -3,6 +3,7 @@ import 'package:flame_audio/bgm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_jam_2024/game/game.dart';
+import 'package:game_jam_2024/game_over/game_over.dart';
 import 'package:game_jam_2024/l10n/l10n.dart';
 import 'package:game_jam_2024/loading/cubit/cubit.dart';
 
@@ -25,6 +26,7 @@ class GamePage extends StatelessWidget {
           },
         ),
         BlocProvider(create: (context) => InventoryBloc()),
+        BlocProvider(create: (context) => GameOverCubit()),
       ],
       child: const Scaffold(
         body: SafeArea(child: GameView()),
@@ -73,28 +75,37 @@ class _GameViewState extends State<GameView> {
           effectPlayer: context.read<AudioCubit>().effectPlayer,
           textStyle: textStyle,
           inventoryBloc: context.read<InventoryBloc>(),
+          gameOverCubit: context.read<GameOverCubit>(),
         );
-    return Stack(
-      children: [
-        Positioned.fill(child: GameWidget(game: _game!)),
-        Align(
-          alignment: Alignment.topRight,
-          child: BlocBuilder<AudioCubit, AudioState>(
-            builder: (context, state) {
-              return IconButton(
-                icon: Icon(
-                  state.volume == 0 ? Icons.volume_off : Icons.volume_up,
-                ),
-                onPressed: () => context.read<AudioCubit>().toggleVolume(),
-              );
-            },
+    return BlocListener<GameOverCubit, GameOverState>(
+      listener: (context, state) {
+        if (state.gameEnded) {
+          Navigator.of(context)
+              .pushReplacement<void, void>(GameOverPage.route());
+        }
+      },
+      child: Stack(
+        children: [
+          Positioned.fill(child: GameWidget(game: _game!)),
+          Align(
+            alignment: Alignment.topRight,
+            child: BlocBuilder<AudioCubit, AudioState>(
+              builder: (context, state) {
+                return IconButton(
+                  icon: Icon(
+                    state.volume == 0 ? Icons.volume_off : Icons.volume_up,
+                  ),
+                  onPressed: () => context.read<AudioCubit>().toggleVolume(),
+                );
+              },
+            ),
           ),
-        ),
-        const Align(
-          alignment: Alignment(0, 0.95),
-          child: LogHud(),
-        ),
-      ],
+          const Align(
+            alignment: Alignment.bottomCenter,
+            child: LogHud(),
+          ),
+        ],
+      ),
     );
   }
 }

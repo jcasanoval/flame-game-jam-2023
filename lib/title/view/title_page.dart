@@ -1,6 +1,6 @@
+import 'package:flame/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:game_jam_2024/game/game.dart';
-import 'package:game_jam_2024/l10n/l10n.dart';
 
 class TitlePage extends StatelessWidget {
   const TitlePage({super.key});
@@ -13,13 +13,18 @@ class TitlePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.titleAppBarTitle),
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/title.jpg',
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SafeArea(child: TitleView()),
+        ],
       ),
-      body: const SafeArea(child: TitleView()),
     );
   }
 }
@@ -29,18 +34,20 @@ class TitleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
-
     return Center(
-      child: SizedBox(
-        width: 250,
-        height: 64,
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pushReplacement<void, void>(GamePage.route());
-          },
-          child: Center(child: Text(l10n.titleButtonStart)),
+      child: SpriteButton.asset(
+        onPressed: () {
+          Navigator.of(context).pushReplacement<void, void>(GamePage.route());
+        },
+        label: const Icon(
+          Icons.play_arrow,
+          color: Color(0xFF5D275D),
+          size: 120,
         ),
+        path: 'sign.png',
+        pressedPath: 'sign.png',
+        width: 425,
+        height: 161,
       ),
     );
   }

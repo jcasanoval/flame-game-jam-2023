@@ -5,6 +5,7 @@ import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:game_jam_2024/game/calendar/calendar.dart';
 import 'package:game_jam_2024/game/game.dart';
+import 'package:game_jam_2024/game_over/game_over.dart';
 import 'package:game_jam_2024/gen/assets.gen.dart';
 
 const _initialValue = 20.0;
@@ -12,8 +13,8 @@ const _initialValue = 20.0;
 class House extends PositionedEntity
     with
         CollisionCallbacks,
-        FlameBlocListenable<CalendarCubit, CalendarState>,
-        HasGameRef<VeryGoodFlameGame> {
+        HasGameRef<VeryGoodFlameGame>,
+        FlameBlocReader<GameOverCubit, GameOverState> {
   House({
     required super.position,
   }) : super(
@@ -40,6 +41,7 @@ class House extends PositionedEntity
 
   @override
   Future<void> onLoad() async {
+    await super.onLoad();
     final sprite = await gameRef.loadSprite(
       Assets.images.winterVillage.path,
       srcSize: Vector2(128, 122),
@@ -56,6 +58,17 @@ class House extends PositionedEntity
     );
 
     await addAll([
+      FlameBlocListener<CalendarCubit, CalendarState>(
+        onNewState: (state) {
+          if (day != state.day) {
+            value = _initialValue;
+            fireplace.lit = false;
+            debugText.text = '$value';
+          }
+          isNight = state.isNighttime;
+          day = state.day;
+        },
+      ),
       if (debugMode) debugText,
       _Walls(),
       _Floor(),
@@ -76,7 +89,7 @@ class House extends PositionedEntity
       debugText.text = '$value';
     }
     if (value < 0) {
-      // TODO: loose here
+      bloc.endGame();
     }
 
     final player = gameRef.player;
@@ -85,17 +98,6 @@ class House extends PositionedEntity
     } else {
       priority = player.priority + 1;
     }
-  }
-
-  @override
-  void onNewState(CalendarState state) {
-    if (day != state.day) {
-      value = _initialValue;
-      fireplace.lit = false;
-      debugText.text = '$value';
-    }
-    isNight = state.isNighttime;
-    day = state.day;
   }
 }
 
