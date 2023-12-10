@@ -26,6 +26,16 @@ class House extends PositionedEntity
 
   late SpriteComponent _spriteComponent;
 
+  late PositionComponent _thermometer;
+  Paint _thermometerPaint = Paint()..color = _thermometerColors[0];
+  static const List<Color> _thermometerColors = [
+    Colors.red,
+    Colors.orange,
+    Colors.yellow,
+    Colors.green,
+    Colors.blue,
+  ];
+
   /// Whether the house has a guest (player) inside or not.
   bool hasGuest = false;
 
@@ -37,7 +47,6 @@ class House extends PositionedEntity
     textRenderer: TextPaint(style: const TextStyle(color: Colors.black)),
   );
   late Fireplace fireplace;
-  static const _wallHeight = 20.0;
 
   @override
   Future<void> onLoad() async {
@@ -74,6 +83,18 @@ class House extends PositionedEntity
       _Floor(),
       _spriteComponent,
       fireplace,
+      RectangleComponent(
+        size: Vector2(14, 54),
+        anchor: Anchor.bottomCenter,
+        position: Vector2(70, 0),
+        paint: Paint()..color = Colors.grey.shade700,
+      ),
+      _thermometer = RectangleComponent(
+        size: Vector2(10, 50),
+        anchor: Anchor.bottomCenter,
+        position: Vector2(70, -2),
+        paint: _thermometerPaint,
+      ),
     ]);
   }
 
@@ -88,6 +109,10 @@ class House extends PositionedEntity
       value -= dt;
       debugText.text = '$value';
     }
+    _thermometer.size.y = 50 * (value / _initialValue);
+    _thermometerPaint.color = _thermometerColors[
+        ((_thermometerColors.length - 1) * (1 - value / _initialValue))
+            .floor()];
     if (value < 0) {
       bloc.endGame();
     }
