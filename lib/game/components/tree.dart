@@ -11,7 +11,7 @@ class Tree extends PositionComponent with HasGameRef<VeryGoodFlameGame> {
     required super.position,
   }) : super(
           anchor: Anchor.center,
-          size: Vector2(60, 60),
+          size: Vector2(64, 64),
           priority: 11,
         );
 
@@ -20,8 +20,9 @@ class Tree extends PositionComponent with HasGameRef<VeryGoodFlameGame> {
   @override
   FutureOr<void> onLoad() async {
     final sprite = await gameRef.loadSprite(
-      Assets.images.tree.path,
-      srcSize: Vector2(96, 96),
+      Assets.images.winterVillage.path,
+      srcSize: Vector2(64, 64),
+      srcPosition: Vector2(192, 64),
     );
     _spriteComponent = SpriteComponent(
       sprite: sprite,
@@ -29,15 +30,17 @@ class Tree extends PositionComponent with HasGameRef<VeryGoodFlameGame> {
       anchor: Anchor.center,
     )..priority = 10;
 
-    await addAll([
-      _spriteComponent,
-      Wall(position: Vector2(10, 30), size: Vector2(20, 10)),
-      SpawnComponent.periodRange(
-        factory: (_) => Log(position: position),
-        maxPeriod: 15,
-        minPeriod: 5,
-        area: Circle(Vector2(0, 50), 50),
-      )
-    ]);
+    await addAll(
+      [
+        _spriteComponent,
+        Wall(position: Vector2(10, 30), size: Vector2(20, 10)),
+        SpawnComponent.periodRange(
+          factory: (_) => Log(position: position),
+          maxPeriod: 15,
+          minPeriod: 5,
+          area: Circle(Vector2(0, 50), 50),
+        )
+      ],
+    );
   }
 }
