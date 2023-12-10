@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_jam_2024/game/game.dart';
 import 'package:game_jam_2024/game_over/game_over.dart';
+import 'package:game_jam_2024/gen/assets.gen.dart';
 import 'package:game_jam_2024/l10n/l10n.dart';
 import 'package:game_jam_2024/loading/cubit/cubit.dart';
 
@@ -53,7 +54,7 @@ class _GameViewState extends State<GameView> {
   void initState() {
     super.initState();
     bgm = context.read<AudioCubit>().bgm;
-    // bgm.play(Assets.audio.background); // TODO: auto play music
+    bgm.play(Assets.audio.snowStorm);
   }
 
   @override
@@ -76,6 +77,7 @@ class _GameViewState extends State<GameView> {
           textStyle: textStyle,
           inventoryBloc: context.read<InventoryBloc>(),
           gameOverCubit: context.read<GameOverCubit>(),
+          audioCubit: context.read<AudioCubit>(),
         );
     return BlocListener<GameOverCubit, GameOverState>(
       listener: (context, state) {

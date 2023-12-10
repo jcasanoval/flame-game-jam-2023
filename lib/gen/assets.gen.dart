@@ -18,8 +18,24 @@ class $AssetsAudioGen {
   /// File path: assets/audio/effect.mp3
   String get effect => 'assets/audio/effect.mp3';
 
+  /// File path: assets/audio/fire_lit_up.mp3
+  String get fireLitUp => 'assets/audio/fire_lit_up.mp3';
+
+  /// File path: assets/audio/fire_sound.mp3
+  String get fireSound => 'assets/audio/fire_sound.mp3';
+
+  /// File path: assets/audio/flint.mp3
+  String get flint => 'assets/audio/flint.mp3';
+
+  /// File path: assets/audio/snow_storm.mp3
+  String get snowStorm => 'assets/audio/snow_storm.mp3';
+
+  /// File path: assets/audio/tree_shaking.mp3
+  String get treeShaking => 'assets/audio/tree_shaking.mp3';
+
   /// List of all assets
-  List<String> get values => [background, effect];
+  List<String> get values =>
+      [background, effect, fireLitUp, fireSound, flint, snowStorm, treeShaking];
 }
 
 class $AssetsImagesGen {
