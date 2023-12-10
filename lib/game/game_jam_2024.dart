@@ -1,9 +1,13 @@
+import 'dart:math';
+
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame_bloc/flame_bloc.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Viewport;
+import 'package:flutter/rendering.dart';
 import 'package:game_jam_2024/game/calendar/cubit/calendar_cubit.dart';
 import 'package:game_jam_2024/game/entities/house/house.dart';
 import 'package:game_jam_2024/game/game.dart';
@@ -57,7 +61,15 @@ class VeryGoodFlameGame extends FlameGame
       ],
     );
 
-    final camera = CameraComponent(world: world);
+    final camera = CameraComponent.withFixedResolution(
+      world: world,
+      width: 1920 / 2,
+      height: 1080 / 2,
+    );
+
+    final minimap = CameraComponent(
+      world: world,
+    );
 
     await addAll([
       FlameMultiBlocProvider(
@@ -69,16 +81,33 @@ class VeryGoodFlameGame extends FlameGame
             create: CalendarCubit.new,
           ),
         ],
-        children: [world, camera],
+        children: [
+          RectangleComponent(
+            position: Vector2(20, 20),
+            size: Vector2(210, 170),
+            paint: Paint()..color = Colors.red.withOpacity(0.2),
+            children: [
+              minimap,
+            ],
+          ),
+          world,
+          camera,
+        ],
       ),
     ]);
 
     camera.viewfinder.position = size / 2;
     camera.viewfinder.zoom = 2;
-    camera.follow(unicorn);
+    camera.follow(unicorn, snap: true);
+
     await camera.viewport.addAll([
       DarknessOverlayComponent(size: size),
       DayIndicator(),
     ]);
+
+    minimap.viewport.size = Vector2(100, 100);
+    minimap.viewport.position = Vector2((-size.x / 2) + 10, (-size.y / 2) + 20);
+    minimap.viewfinder.zoom = 0.2;
+    minimap.priority = 9999;
   }
 }
