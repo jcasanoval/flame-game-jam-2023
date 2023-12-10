@@ -29,6 +29,10 @@ class $AssetsImagesGen {
   AssetGenImage get fireLit =>
       const AssetGenImage('assets/images/fire_lit.png');
 
+  /// File path: assets/images/fire_unlit.png
+  AssetGenImage get fireUnlit =>
+      const AssetGenImage('assets/images/fire_unlit.png');
+
   /// File path: assets/images/log.png
   AssetGenImage get log => const AssetGenImage('assets/images/log.png');
 
@@ -40,7 +44,8 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/unicorn_animation.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [fireLit, log, tree, unicornAnimation];
+  List<AssetGenImage> get values =>
+      [fireLit, fireUnlit, log, tree, unicornAnimation];
 }
 
 class $AssetsLicensesGen {
