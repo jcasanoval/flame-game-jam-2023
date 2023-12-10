@@ -23,8 +23,10 @@ class VeryGoodFlameGame extends FlameGame
     required this.textStyle,
     required InventoryBloc inventoryBloc,
     required GameOverCubit gameOverCubit,
+    required AudioCubit audioCubit,
   })  : _inventoryBloc = inventoryBloc,
-        _gameOverCubit = gameOverCubit {
+        _gameOverCubit = gameOverCubit,
+        _audioCubit = audioCubit {
     images.prefix = '';
   }
 
@@ -33,6 +35,7 @@ class VeryGoodFlameGame extends FlameGame
 
   final InventoryBloc _inventoryBloc;
   final GameOverCubit _gameOverCubit;
+  final AudioCubit _audioCubit;
 
   final AppLocalizations l10n;
 
@@ -105,6 +108,9 @@ class VeryGoodFlameGame extends FlameGame
           ),
           FlameBlocProvider<GameOverCubit, GameOverState>.value(
             value: _gameOverCubit,
+          ),
+          FlameBlocProvider<AudioCubit, AudioState>.value(
+            value: _audioCubit,
           ),
         ],
         children: [world, camera],
