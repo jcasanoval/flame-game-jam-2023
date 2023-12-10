@@ -15,7 +15,6 @@ class ShakeBehavior extends Behavior<Tree> with KeyboardHandler, HasGameRef {
         DateTime.now().difference(lastShaken).inMilliseconds > 500 &&
         parent.nearPlayer) {
       lastShaken = DateTime.now();
-      print('shake');
       parent.shaking = true;
       if (Random().nextInt(3) == 1) {
         parent.game.world.add(
