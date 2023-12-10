@@ -64,6 +64,17 @@ class VeryGoodFlameGame extends FlameGame
       randomSnow.add(snow);
     }
 
+    final randomPebbles = <Component>[];
+    for (var i = 0; i < 35; i++) {
+      final pebble = Pebble()
+        ..position = Vector2(
+          random.nextDouble() * worldSize.x,
+          random.nextDouble() * worldSize.y,
+        )
+        ..size = Vector2.all(32);
+      randomPebbles.add(pebble);
+    }
+
     world = World(
       children: [
         player = Player(position: Vector2(66, 608)),
@@ -76,6 +87,7 @@ class VeryGoodFlameGame extends FlameGame
         Tree(position: Vector2(140, 400)),
         Tree(position: Vector2(30, 440)),
         ...randomSnow,
+        ...randomPebbles,
       ],
     );
 

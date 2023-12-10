@@ -129,7 +129,14 @@ class _Floor extends PositionComponent
   @override
   Future<void> onLoad() async {
     await addAll(
-      [RectangleHitbox(isSolid: true, size: size)..anchor = Anchor.center],
+      [
+        RectangleComponent(
+          size: size,
+          anchor: Anchor.center,
+          paint: Paint()..color = const Color(0xff976744).withOpacity(0.2),
+        ),
+        RectangleHitbox(isSolid: true, size: size)..anchor = Anchor.center,
+      ],
     );
   }
 }
