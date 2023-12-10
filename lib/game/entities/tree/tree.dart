@@ -36,8 +36,8 @@ class Forest extends PositionComponent with HasGameRef {
           2; // Ensure trees are outside the village
 
       // Convert polar coordinates to Cartesian coordinates
-      final randomX = randomRadius * math.cos(randomAngle);
-      final randomY = randomRadius * math.sin(randomAngle);
+      final randomX = randomRadius * math.cos(randomAngle) + position.x;
+      final randomY = randomRadius * math.sin(randomAngle) + position.y;
 
       // Create and add a tree at the calculated coordinates
       final tree = Tree()
