@@ -27,13 +27,14 @@ class House extends PositionedEntity
   late SpriteComponent _spriteComponent;
 
   late PositionComponent _thermometer;
-  Paint _thermometerPaint = Paint()..color = _thermometerColors[0];
+  final Paint _thermometerPaint = Paint()..color = _thermometerColors[0];
   static const List<Color> _thermometerColors = [
     Colors.red,
     Colors.orange,
     Colors.yellow,
     Colors.green,
     Colors.blue,
+    Colors.lightBlue
   ];
 
   /// Whether the house has a guest (player) inside or not.
