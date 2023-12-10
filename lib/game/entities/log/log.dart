@@ -36,7 +36,7 @@ class Log extends PositionedEntity
 
   @override
   void onCollision(Set<Vector2> points, PositionComponent other) {
-    if (other is Unicorn) {
+    if (other is Player) {
       nearPlayer = true;
     }
     super.onCollision(points, other);

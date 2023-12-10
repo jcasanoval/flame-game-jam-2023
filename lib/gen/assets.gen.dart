@@ -36,12 +36,12 @@ class $AssetsImagesGen {
   /// File path: assets/images/log.png
   AssetGenImage get log => const AssetGenImage('assets/images/log.png');
 
+  /// File path: assets/images/player_character.png
+  AssetGenImage get playerCharacter =>
+      const AssetGenImage('assets/images/player_character.png');
+
   /// File path: assets/images/tree.png
   AssetGenImage get tree => const AssetGenImage('assets/images/tree.png');
-
-  /// File path: assets/images/unicorn_animation.png
-  AssetGenImage get unicornAnimation =>
-      const AssetGenImage('assets/images/unicorn_animation.png');
 
   /// File path: assets/images/winter_village.png
   AssetGenImage get winterVillage =>
@@ -49,7 +49,7 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values =>
-      [fireLit, fireUnlit, log, tree, unicornAnimation, winterVillage];
+      [fireLit, fireUnlit, log, playerCharacter, tree, winterVillage];
 }
 
 class $AssetsLicensesGen {
