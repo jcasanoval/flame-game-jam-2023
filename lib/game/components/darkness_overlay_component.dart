@@ -20,6 +20,8 @@ class DarknessOverlayComponent extends PositionComponent
   );
 
   double value = 0;
+  bool isNight = false;
+  int day = 1;
 
   @override
   Future<void> onLoad() async {
@@ -33,6 +35,9 @@ class DarknessOverlayComponent extends PositionComponent
     value += dt;
     final percentageThroughNight =
         (value / _secondsInDayNightCycle).clamp(0, 1).toDouble();
+    if (percentageThroughNight > 0.6 && !isNight) {
+      bloc.makeNight();
+    }
     if (percentageThroughNight == 1) {
       bloc.incrementDay();
     }
@@ -49,7 +54,11 @@ class DarknessOverlayComponent extends PositionComponent
 
   @override
   void onNewState(CalendarState state) {
-    value = 0;
+    if (day != state.day) {
+      value = 0;
+    }
+    isNight = state.isNighttime;
+    day = state.day;
   }
 
   Vector2 cubicBezier(

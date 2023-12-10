@@ -1,13 +1,20 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
+import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
+import 'package:game_jam_2024/game/calendar/calendar.dart';
+import 'package:game_jam_2024/game/entities/entities.dart';
 import 'package:game_jam_2024/game/game.dart';
 import 'package:game_jam_2024/gen/assets.gen.dart';
 
+const _initialValue = 20.0;
+
 class House extends PositionedEntity
-    with CollisionCallbacks, HasGameRef<VeryGoodFlameGame> {
+    with
+        CollisionCallbacks,
+        FlameBlocListenable<CalendarCubit, CalendarState>,
+        HasGameRef {
   House({
     required super.position,
   }) : super(
@@ -22,16 +29,14 @@ class House extends PositionedEntity
   /// Whether the house has a guest (player) inside or not.
   bool hasGuest = false;
 
-  @override
-  void update(double dt) {
-    super.update(dt);
-
-    if (hasGuest) {
-      _spriteComponent.opacity = 0.2;
-    } else {
-      _spriteComponent.opacity = 1;
-    }
-  }
+  bool fireLit = false;
+  bool isNight = false;
+  double value = _initialValue;
+  int day = 1;
+  TextComponent debugText = TextComponent(
+    textRenderer: TextPaint(style: const TextStyle(color: Colors.black)),
+  );
+  late Fireplace fireplace;
 
   @override
   Future<void> onLoad() async {
@@ -45,13 +50,45 @@ class House extends PositionedEntity
       size: super.size,
       anchor: Anchor.center,
     )..priority = 10;
+    fireplace = Fireplace(
+      position: Vector2(-30, 10),
+      onLitEvent: (value) => fireLit = value,
+    );
 
     await addAll([
+      if (debugMode) debugText,
       _Walls(),
       _Floor(),
       _spriteComponent,
-      Fireplace(position: Vector2(-30, 10)),
+      fireplace,
     ]);
+  }
+
+  @override
+  void update(double dt) {
+    if (hasGuest) {
+      _spriteComponent.opacity = 0.2;
+    } else {
+      _spriteComponent.opacity = 1;
+    }
+    if (isNight && !fireLit) {
+      value -= dt;
+      debugText.text = '$value';
+    }
+    if (value < 0) {
+      // TODO: loose here
+    }
+  }
+
+  @override
+  void onNewState(CalendarState state) {
+    if (day != state.day) {
+      value = _initialValue;
+      fireplace.lit = false;
+      debugText.text = '$value';
+    }
+    isNight = state.isNighttime;
+    day = state.day;
   }
 }
 
