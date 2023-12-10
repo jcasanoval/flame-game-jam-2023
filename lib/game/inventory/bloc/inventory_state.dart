@@ -10,13 +10,13 @@ class InventoryState extends Equatable {
 
   /// The maximum number of items (such as logs) that can be stored in the
   /// inventory simultaneously.
-  static const _inventorySize = 5;
+  static const inventorySize = 5;
 
   /// The number of logs in the inventory.
   final int logs;
 
   /// Whether the inventory is full.
-  bool get isFull => logs >= _inventorySize;
+  bool get isFull => logs >= inventorySize;
 
   /// Whether the inventory is empty.
   bool get isEmpty => logs == 0;
