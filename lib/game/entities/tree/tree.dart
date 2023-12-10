@@ -1,14 +1,16 @@
 import 'dart:async';
 import 'dart:math' as math;
 
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/experimental.dart';
+import 'package:flame_behaviors/flame_behaviors.dart';
+import 'package:game_jam_2024/game/entities/tree/behaviors/behaviors.dart';
 import 'package:game_jam_2024/game/game.dart';
 import 'package:game_jam_2024/gen/assets.gen.dart';
 
 final _random = math.Random(0);
 
-class Forest extends PositionComponent {
+class Forest extends PositionComponent with HasGameRef {
   Forest({
     required this.villageSize,
     this.treeDensity = 150,
@@ -60,20 +62,33 @@ class Forest extends PositionComponent {
       // Add the tree to the list if there is no collision
       randomTrees.add(tree);
     }
-    addAll(randomTrees);
+    game.world.addAll(randomTrees);
   }
 }
 
-class Tree extends PositionComponent with HasGameRef<VeryGoodFlameGame> {
+class Tree extends PositionedEntity
+    with HasGameRef<VeryGoodFlameGame>, CollisionCallbacks {
   Tree({
     super.position,
   }) : super(
           anchor: Anchor.center,
           size: Vector2(64, 64),
           priority: 11,
+          behaviors: [
+            ShakeBehavior(),
+          ],
         );
 
   late SpriteComponent _spriteComponent;
+  bool nearPlayer = false;
+
+  set shaking(bool value) {
+    _shaking = value;
+    if (value) lastShaken = DateTime.now();
+  }
+
+  DateTime lastShaken = DateTime.now();
+  bool _shaking = false;
 
   @override
   FutureOr<void> onLoad() async {
@@ -92,13 +107,53 @@ class Tree extends PositionComponent with HasGameRef<VeryGoodFlameGame> {
       [
         _spriteComponent,
         Wall(position: Vector2(10, 30), size: Vector2(20, 10)),
-        SpawnComponent.periodRange(
-          factory: (_) => Log(position: position),
-          maxPeriod: 15,
-          minPeriod: 5,
-          area: Circle(Vector2(0, 50), 50),
-        )
+        CircleHitbox(radius: 35, anchor: Anchor.center),
       ],
     );
   }
+
+  @override
+  void update(double dt) {
+    final player = gameRef.player;
+    if (player.position.y + 64 > position.y + size.y / 2) {
+      priority = player.priority - 1;
+    } else {
+      priority = player.priority + 1;
+    }
+
+    if (_shaking) {
+      _spriteComponent.angle = pingPong(
+            DateTime.now().millisecondsSinceEpoch / 1000,
+            0.1,
+          ) -
+          0.05;
+      if (DateTime.now().difference(lastShaken).inMilliseconds > 500) {
+        _shaking = false;
+      }
+    } else {
+      _spriteComponent.angle = 0;
+    }
+  }
+
+  @override
+  void onCollisionStart(Set<Vector2> points, PositionComponent other) {
+    if (other is Player) {
+      nearPlayer = true;
+    }
+    super.onCollisionStart(points, other);
+  }
+
+  @override
+  void onCollisionEnd(PositionComponent other) {
+    if (other is Player) {
+      nearPlayer = false;
+    }
+    super.onCollisionEnd(other);
+  }
+}
+
+double pingPong(double value, double range) {
+  final mod = value % range;
+  final result = mod;
+  return result.abs();
 }
