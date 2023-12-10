@@ -5,7 +5,7 @@ import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:game_jam_2024/game/calendar/cubit/calendar_cubit.dart';
 
-const _secondsInDayNightCycle = 10;
+const _secondsInDayNightCycle = 300;
 
 class DarknessOverlayComponent extends PositionComponent
     with
