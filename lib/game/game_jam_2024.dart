@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
+import 'package:flame/particles.dart';
 import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:game_jam_2024/game/calendar/cubit/calendar_cubit.dart';
@@ -9,6 +12,8 @@ import 'package:game_jam_2024/game/entities/house/house.dart';
 import 'package:game_jam_2024/game/game.dart';
 import 'package:game_jam_2024/game_over/game_over.dart';
 import 'package:game_jam_2024/l10n/l10n.dart';
+
+final Random random = Random();
 
 class VeryGoodFlameGame extends FlameGame
     with HasKeyboardHandlerComponents, HasCollisionDetection {
@@ -43,7 +48,7 @@ class VeryGoodFlameGame extends FlameGame
   int counter = 0;
 
   @override
-  Color backgroundColor() => Colors.white;
+  Color backgroundColor() => Colors.blue.shade50;
 
   @override
   Future<void> onLoad() async {
@@ -87,5 +92,23 @@ class VeryGoodFlameGame extends FlameGame
       DarknessOverlayComponent(size: size),
       DayIndicator(),
     ]);
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+    camera.viewport.add(
+      ParticleSystemComponent(
+        particle: AcceleratedParticle(
+          lifespan: random.nextDouble() * 20,
+          position: Vector2(random.nextDouble() * canvasSize.x, 0),
+          speed: Vector2(0, 70 + (random.nextDouble() * 10)),
+          child: CircleParticle(
+            radius: 2,
+            paint: Paint()..color = Colors.white,
+          ),
+        ),
+      ),
+    );
   }
 }
