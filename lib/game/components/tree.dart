@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
-import 'package:game_jam_2024/game/entities/wall/wall.dart';
 import 'package:game_jam_2024/game/game.dart';
 import 'package:game_jam_2024/gen/assets.gen.dart';
 

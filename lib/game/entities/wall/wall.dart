@@ -16,16 +16,12 @@ class Wall extends PositionedEntity with CollisionCallbacks {
 
   @override
   Future<void> onLoad() async {
-    final hitPaint = Paint()..color = Colors.red;
     await addAll([
       RectangleComponent(
-        paint: Paint()..color = Color(0xFFA9A9A9),
         anchor: Anchor.center,
         size: size,
       ),
-      RectangleHitbox(isSolid: true, size: size)
-        ..anchor = Anchor.center
-        ..paint = hitPaint,
+      RectangleHitbox(isSolid: true, size: size)..anchor = Anchor.center
     ]);
   }
 }
