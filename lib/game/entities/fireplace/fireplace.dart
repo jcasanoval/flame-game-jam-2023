@@ -62,7 +62,7 @@ class Fireplace extends PositionedEntity with CollisionCallbacks, HasGameRef {
 
   @override
   void onCollision(Set<Vector2> points, PositionComponent other) {
-    if (other is Unicorn) {
+    if (other is Player) {
       nearPlayer = true;
     }
     super.onCollision(points, other);

@@ -5,10 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:game_jam_2024/game/game.dart';
 
 /// {@template DropLogBehavior}
-/// A behavior that allows the [Unicorn] to drop a log, if it has some
+/// A behavior that allows the [Player] to drop a log, if it has some
 /// in its inventory.
 /// {@endtemplate}
-class DropLogBehavior extends Behavior<Unicorn>
+class DropLogBehavior extends Behavior<Player>
     with
         KeyboardHandler,
         FlameBlocReader<InventoryBloc, InventoryState>,

@@ -3,7 +3,7 @@ import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:game_jam_2024/game/entities/wall/wall.dart';
 import 'package:game_jam_2024/game/game.dart';
 
-class WallCollisionBehavior extends CollisionBehavior<Wall, Unicorn> {
+class WallCollisionBehavior extends CollisionBehavior<Wall, Player> {
   Set<Wall> collidedWalls = {};
 
   @override
@@ -23,7 +23,7 @@ class WallCollisionBehavior extends CollisionBehavior<Wall, Unicorn> {
       final bottomDistance = (topEdge - playerBottomEdge).abs();
 
       final bottomEdge = wall.absoluteTopLeftPosition.y + wall.size.y / 2;
-      final playerTopEdge = parent.position.y - parent.size.y / 2;
+      final playerTopEdge = parent.position.y;
       final topDistance = (bottomEdge - playerTopEdge).abs();
 
       final leftEdge = wall.absoluteTopLeftPosition.x - wall.size.x / 2;

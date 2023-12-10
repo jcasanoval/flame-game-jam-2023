@@ -34,6 +34,8 @@ class VeryGoodFlameGame extends FlameGame
   @override
   late final World world;
 
+  late Player player;
+
   int counter = 0;
 
   @override
@@ -41,16 +43,14 @@ class VeryGoodFlameGame extends FlameGame
 
   @override
   Future<void> onLoad() async {
-    final unicorn = Unicorn(position: Vector2(66, 608));
-
     world = World(
       children: [
+        player = Player(position: Vector2(66, 608)),
         House(position: Vector2(960, 544)),
         House(position: Vector2(178, 98)),
         House(position: Vector2(860, 124)),
         House(position: Vector2(160, 600)),
         House(position: Vector2(500, 400)),
-        unicorn,
         Tree(position: Vector2(80, 380)),
         Tree(position: Vector2(140, 400)),
         Tree(position: Vector2(30, 440)),
@@ -75,7 +75,7 @@ class VeryGoodFlameGame extends FlameGame
 
     camera.viewfinder.position = size / 2;
     camera.viewfinder.zoom = 2;
-    camera.follow(unicorn);
+    camera.follow(player);
     await camera.viewport.addAll([
       DarknessOverlayComponent(size: size),
       DayIndicator(),
