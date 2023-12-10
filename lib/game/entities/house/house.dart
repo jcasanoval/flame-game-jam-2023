@@ -1,11 +1,16 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
+import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:game_jam_2024/game/calendar/calendar.dart';
 import 'package:game_jam_2024/game/entities/entities.dart';
 import 'package:game_jam_2024/game/entities/wall/wall.dart';
 
-class House extends PositionedEntity with CollisionCallbacks {
+const _initialValue = 20.0;
+
+class House extends PositionedEntity
+    with CollisionCallbacks, FlameBlocListenable<CalendarCubit, CalendarState> {
   House({
     required super.position,
   }) : super(
@@ -15,9 +20,26 @@ class House extends PositionedEntity with CollisionCallbacks {
           priority: 20,
         );
 
+  bool fireLit = false;
+  bool isNight = false;
+  double value = _initialValue;
+  int day = 1;
+
+  TextComponent debugText = TextComponent(
+    textRenderer: TextPaint(style: const TextStyle(color: Colors.black)),
+  );
+  late Fireplace fireplace;
+
   @override
   Future<void> onLoad() async {
+    debugText.text = '$value';
+    fireplace = Fireplace(
+      position: Vector2(0, -30),
+      onLitEvent: (value) => fireLit = value,
+    );
+
     await addAll([
+      if (debugMode) debugText,
       // Top wall
       Wall(
         position: Vector2(48, -43),
@@ -61,7 +83,29 @@ class House extends PositionedEntity with CollisionCallbacks {
         position: Vector2(0, -55),
         size: Vector2(96, 20),
       ),
-      Fireplace(position: Vector2(0, -30)),
+      fireplace,
     ]);
+  }
+
+  @override
+  void update(double dt) {
+    if (isNight && !fireLit) {
+      value -= dt;
+      debugText.text = '$value';
+    }
+    if (value < 0) {
+      // TODO: loose here
+    }
+  }
+
+  @override
+  void onNewState(CalendarState state) {
+    if (day != state.day) {
+      value = _initialValue;
+      fireplace.lit = false;
+      debugText.text = '$value';
+    }
+    isNight = state.isNighttime;
+    day = state.day;
   }
 }

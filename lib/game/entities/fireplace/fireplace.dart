@@ -11,6 +11,7 @@ import 'package:game_jam_2024/gen/assets.gen.dart';
 class Fireplace extends PositionedEntity with CollisionCallbacks, HasGameRef {
   Fireplace({
     required super.position,
+    this.onLitEvent,
   }) : super(
           anchor: Anchor.center,
           size: Vector2.all(20),
@@ -34,12 +35,15 @@ class Fireplace extends PositionedEntity with CollisionCallbacks, HasGameRef {
       add(_fireplaceUnlit);
       remove(_fireplaceLit);
     }
+    onLitEvent?.call(value);
   }
 
   bool get lit => _lit;
   bool nearPlayer = false;
 
   bool _lit = false;
+
+  final ValueSetter<bool>? onLitEvent;
 
   @override
   void update(double dt) {
