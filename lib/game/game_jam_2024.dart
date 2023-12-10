@@ -3,7 +3,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame_bloc/flame_bloc.dart';
-import 'package:flutter/painting.dart';
+import 'package:flutter/material.dart';
 import 'package:game_jam_2024/game/entities/house/house.dart';
 import 'package:game_jam_2024/game/game.dart';
 import 'package:game_jam_2024/l10n/l10n.dart';
@@ -19,6 +19,9 @@ class VeryGoodFlameGame extends FlameGame
     images.prefix = '';
   }
 
+  @override
+  bool get debugMode => false;
+
   final InventoryBloc _inventoryBloc;
 
   final AppLocalizations l10n;
@@ -32,24 +35,28 @@ class VeryGoodFlameGame extends FlameGame
   int counter = 0;
 
   @override
-  Color backgroundColor() => const Color(0xFFFEFEFE);
+  Color backgroundColor() => Colors.white;
 
   @override
   Future<void> onLoad() async {
+    final unicorn = Unicorn(position: Vector2(66, 608));
+
     world = World(
       children: [
-        Log(position: (size / 2) + Vector2(50, 0)),
-        Log(position: (size / 2) + Vector2(150, -50)),
-        Log(position: (size / 2) + Vector2(-35, -50)),
-        House(position: (size / 2)..add(Vector2(200, 100))),
-        Unicorn(position: size / 2),
-        Tree(position: (size / 2) + Vector2(-150, 0)),
-        Tree(position: (size / 2) + Vector2(-180, 20)),
-        Fireplace(position: (size / 2)..sub(Vector2(20, 20))),
+        House(position: Vector2(960, 544)),
+        House(position: Vector2(178, 98)),
+        House(position: Vector2(860, 124)),
+        House(position: Vector2(160, 600)),
+        House(position: Vector2(500, 400)),
+        unicorn,
+        Tree(position: Vector2(80, 380)),
+        Tree(position: Vector2(140, 400)),
+        Tree(position: Vector2(30, 440)),
       ],
     );
 
     final camera = CameraComponent(world: world);
+
     await addAll([
       FlameMultiBlocProvider(
         providers: [
@@ -63,6 +70,7 @@ class VeryGoodFlameGame extends FlameGame
 
     camera.viewfinder.position = size / 2;
     camera.viewfinder.zoom = 2;
+    camera.follow(unicorn);
     camera.viewport.add(DarknessOverlayComponent(size: size));
   }
 }

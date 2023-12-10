@@ -23,7 +23,7 @@ class DarknessOverlayComponent extends PositionComponent {
   @override
   void update(double dt) {
     value += dt;
-    final percentageThroughNight = (value / 10).clamp(0, 0.9).toDouble();
+    final percentageThroughNight = (value / 300).clamp(0, 0.9).toDouble();
     final curvedValue = cubicBezier(
       Vector2.zero(),
       Vector2(0.5, 0),

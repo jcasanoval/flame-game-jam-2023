@@ -14,13 +14,14 @@ class Unicorn extends PositionedEntity with HasGameRef, CollisionCallbacks {
           anchor: Anchor.center,
           size: Vector2.all(32),
           behaviors: [
-            TappingBehavior(),
             MovingBehavior(),
             WallCollisionBehavior(),
             PropagatingCollisionBehavior(
               RectangleHitbox(
+                position: Vector2.all(16),
                 isSolid: true,
-                size: Vector2.all(32),
+                size: Vector2.all(16),
+                anchor: Anchor.center,
               )..paint = (Paint()..color = Colors.red),
             ),
             DropLogBehavior(),
@@ -56,13 +57,6 @@ class Unicorn extends PositionedEntity with HasGameRef, CollisionCallbacks {
         animation: animation,
         size: size,
       ),
-      RectangleHitbox(isSolid: true, size: size)
-        ..debugColor = Colors.red
-        ..paint = (Paint()..color = Colors.red),
-      // RectangleComponent(
-      //   size: size,
-      //   paint: Paint()..color = Colors.green,
-      // ),
     ]);
 
     resetAnimation();
