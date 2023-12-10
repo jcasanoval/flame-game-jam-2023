@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/particles.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/material.dart';
 import 'package:game_jam_2024/game/entities/fireplace/behaviors/behaviors.dart';
@@ -98,7 +99,7 @@ class Fireplace extends PositionedEntity with CollisionCallbacks, HasGameRef {
       sprite: unlitSprite,
       size: size,
     );
-    addAll([
+    await addAll([
       _fireplaceUnlit,
       RectangleHitbox()..anchor = Anchor.center,
     ]);
