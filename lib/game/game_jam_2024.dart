@@ -83,9 +83,10 @@ class VeryGoodFlameGame extends FlameGame
         House(position: Vector2(860, 124)),
         House(position: Vector2(160, 600)),
         House(position: Vector2(500, 400)),
-        Tree(position: Vector2(80, 380)),
-        Tree(position: Vector2(140, 400)),
-        Tree(position: Vector2(30, 440)),
+        Forest(
+          position: Vector2(500, 400),
+          villageSize: worldSize * 1.15,
+        ),
         ...randomSnow,
         ...randomPebbles,
       ],
