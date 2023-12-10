@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
+const _secondsInDayNightCycle = 300;
+
 class DarknessOverlayComponent extends PositionComponent {
   DarknessOverlayComponent({
     super.size,
@@ -23,7 +25,8 @@ class DarknessOverlayComponent extends PositionComponent {
   @override
   void update(double dt) {
     value += dt;
-    final percentageThroughNight = (value / 300).clamp(0, 0.9).toDouble();
+    final percentageThroughNight =
+        (value / _secondsInDayNightCycle).clamp(0, 0.9).toDouble();
     final curvedValue = cubicBezier(
       Vector2.zero(),
       Vector2(0.5, 0),
