@@ -2,7 +2,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/material.dart';
-import 'package:game_jam_2024/game/entities/unicorn/behaviors/behaviors.dart';
+import 'package:game_jam_2024/game/entities/player/behaviors/behaviors.dart';
 
 class Player extends PositionedEntity with HasGameRef, CollisionCallbacks {
   Player({
