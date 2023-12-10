@@ -4,7 +4,6 @@ import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:game_jam_2024/game/calendar/calendar.dart';
-import 'package:game_jam_2024/game/entities/entities.dart';
 import 'package:game_jam_2024/game/game.dart';
 import 'package:game_jam_2024/gen/assets.gen.dart';
 
@@ -14,7 +13,7 @@ class House extends PositionedEntity
     with
         CollisionCallbacks,
         FlameBlocListenable<CalendarCubit, CalendarState>,
-        HasGameRef {
+        HasGameRef<VeryGoodFlameGame> {
   House({
     required super.position,
   }) : super(
@@ -37,6 +36,7 @@ class House extends PositionedEntity
     textRenderer: TextPaint(style: const TextStyle(color: Colors.black)),
   );
   late Fireplace fireplace;
+  static const _wallHeight = 20.0;
 
   @override
   Future<void> onLoad() async {
@@ -78,6 +78,13 @@ class House extends PositionedEntity
     if (value < 0) {
       // TODO: loose here
     }
+
+    final player = gameRef.player;
+    if (player.position.y + 80 > position.y + size.y / 2) {
+      priority = player.priority - 1;
+    } else {
+      priority = player.priority + 1;
+    }
   }
 
   @override
@@ -104,7 +111,7 @@ class _Floor extends PositionComponent
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
-    if (other is Unicorn) {
+    if (other is Player) {
       parent.hasGuest = true;
     }
   }
@@ -112,7 +119,7 @@ class _Floor extends PositionComponent
   @override
   void onCollisionEnd(PositionComponent other) {
     super.onCollisionEnd(other);
-    if (other is Unicorn) {
+    if (other is Player) {
       parent.hasGuest = false;
     }
   }

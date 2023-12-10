@@ -5,7 +5,7 @@ import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/material.dart';
 import 'package:game_jam_2024/game/entities/fireplace/behaviors/behaviors.dart';
-import 'package:game_jam_2024/game/entities/unicorn/unicorn.dart';
+import 'package:game_jam_2024/game/entities/player/player.dart';
 import 'package:game_jam_2024/gen/assets.gen.dart';
 
 class Fireplace extends PositionedEntity with CollisionCallbacks, HasGameRef {
@@ -62,7 +62,7 @@ class Fireplace extends PositionedEntity with CollisionCallbacks, HasGameRef {
 
   @override
   void onCollision(Set<Vector2> points, PositionComponent other) {
-    if (other is Unicorn) {
+    if (other is Player) {
       nearPlayer = true;
     }
     super.onCollision(points, other);

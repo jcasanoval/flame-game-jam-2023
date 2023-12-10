@@ -1,10 +1,10 @@
 import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/services.dart';
-import 'package:game_jam_2024/game/entities/unicorn/behaviors/behaviors.dart';
+import 'package:game_jam_2024/game/entities/player/behaviors/behaviors.dart';
 
 const speed = 45.0;
-const topSpeed = 125.0;
+const topSpeed = 175.0;
 const friction = 0.7;
 const minSpeed = 0.2;
 
