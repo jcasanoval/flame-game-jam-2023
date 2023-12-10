@@ -13,7 +13,7 @@ import 'package:game_jam_2024/game/game.dart';
 import 'package:game_jam_2024/game_over/game_over.dart';
 import 'package:game_jam_2024/l10n/l10n.dart';
 
-final Random random = Random();
+final Random random = Random(0);
 
 class VeryGoodFlameGame extends FlameGame
     with HasKeyboardHandlerComponents, HasCollisionDetection {
@@ -48,10 +48,22 @@ class VeryGoodFlameGame extends FlameGame
   int counter = 0;
 
   @override
-  Color backgroundColor() => Colors.blue.shade50;
+  Color backgroundColor() => Colors.white;
 
   @override
   Future<void> onLoad() async {
+    final worldSize = Vector2(1024, 768);
+    final randomSnow = <Component>[];
+    for (var i = 0; i < 300; i++) {
+      final snow = Snow()
+        ..position = Vector2(
+          random.nextDouble() * worldSize.x,
+          random.nextDouble() * worldSize.y,
+        )
+        ..size = Vector2.all(32);
+      randomSnow.add(snow);
+    }
+
     world = World(
       children: [
         player = Player(position: Vector2(66, 608)),
@@ -63,6 +75,7 @@ class VeryGoodFlameGame extends FlameGame
         Tree(position: Vector2(80, 380)),
         Tree(position: Vector2(140, 400)),
         Tree(position: Vector2(30, 440)),
+        ...randomSnow,
       ],
     );
 
@@ -79,7 +92,7 @@ class VeryGoodFlameGame extends FlameGame
           ),
           FlameBlocProvider<GameOverCubit, GameOverState>.value(
             value: _gameOverCubit,
-          )
+          ),
         ],
         children: [world, camera],
       ),
