@@ -43,9 +43,13 @@ class $AssetsImagesGen {
   AssetGenImage get unicornAnimation =>
       const AssetGenImage('assets/images/unicorn_animation.png');
 
+  /// File path: assets/images/winter_village.png
+  AssetGenImage get winterVillage =>
+      const AssetGenImage('assets/images/winter_village.png');
+
   /// List of all assets
   List<AssetGenImage> get values =>
-      [fireLit, fireUnlit, log, tree, unicornAnimation];
+      [fireLit, fireUnlit, log, tree, unicornAnimation, winterVillage];
 }
 
 class $AssetsLicensesGen {

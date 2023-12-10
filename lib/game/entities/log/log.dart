@@ -14,7 +14,7 @@ class Log extends PositionedEntity
     required super.position,
   }) : super(
           anchor: Anchor.center,
-          size: Vector2(20, 7),
+          size: Vector2(26, 32),
           behaviors: [
             PickableLogBehavior(),
           ],
@@ -51,8 +51,9 @@ class Log extends PositionedEntity
   @override
   FutureOr<void> onLoad() async {
     final sprite = await gameRef.loadSprite(
-      Assets.images.log.path,
-      srcSize: Vector2(96, 33),
+      Assets.images.winterVillage.path,
+      srcSize: Vector2(26, 32),
+      srcPosition: Vector2(834, 256),
     );
 
     await addAll([
