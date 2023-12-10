@@ -32,7 +32,4 @@ class Player extends PositionedEntity with HasGameRef, CollisionCallbacks {
     required super.position,
     super.behaviors,
   }) : super(size: Vector2.all(32));
-
-  @override
-  Future<void> onLoad() async {}
 }
