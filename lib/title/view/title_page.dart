@@ -1,5 +1,6 @@
 import 'package:flame/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:game_jam_2024/credits/credits.dart';
 import 'package:game_jam_2024/game/game.dart';
 
 class TitlePage extends StatelessWidget {
@@ -34,21 +35,38 @@ class TitleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SpriteButton.asset(
-        onPressed: () {
-          Navigator.of(context).pushReplacement<void, void>(GamePage.route());
-        },
-        label: const Icon(
-          Icons.play_arrow,
-          color: Color(0xFF5D275D),
-          size: 120,
+    return Stack(
+      children: [
+        Center(
+          child: SpriteButton.asset(
+            onPressed: () {
+              Navigator.of(context)
+                  .pushReplacement<void, void>(GamePage.route());
+            },
+            label: const Icon(
+              Icons.play_arrow,
+              color: Color(0xFF5D275D),
+              size: 120,
+            ),
+            path: 'sign.png',
+            pressedPath: 'sign.png',
+            width: 425,
+            height: 161,
+          ),
         ),
-        path: 'sign.png',
-        pressedPath: 'sign.png',
-        width: 425,
-        height: 161,
-      ),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: IconButton.filled(
+              icon: Icon(Icons.info_outline),
+              onPressed: () {
+                Navigator.of(context).push(CreditsPage.route());
+              },
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
