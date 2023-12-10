@@ -25,6 +25,10 @@ class $AssetsAudioGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/calendar.png
+  AssetGenImage get calendar =>
+      const AssetGenImage('assets/images/calendar.png');
+
   /// File path: assets/images/fire_lit.png
   AssetGenImage get fireLit =>
       const AssetGenImage('assets/images/fire_lit.png');
@@ -40,6 +44,12 @@ class $AssetsImagesGen {
   AssetGenImage get playerCharacter =>
       const AssetGenImage('assets/images/player_character.png');
 
+  /// File path: assets/images/sign.png
+  AssetGenImage get sign => const AssetGenImage('assets/images/sign.png');
+
+  /// File path: assets/images/title.jpg
+  AssetGenImage get title => const AssetGenImage('assets/images/title.jpg');
+
   /// File path: assets/images/tree.png
   AssetGenImage get tree => const AssetGenImage('assets/images/tree.png');
 
@@ -48,8 +58,17 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/winter_village.png');
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [fireLit, fireUnlit, log, playerCharacter, tree, winterVillage];
+  List<AssetGenImage> get values => [
+        calendar,
+        fireLit,
+        fireUnlit,
+        log,
+        playerCharacter,
+        sign,
+        title,
+        tree,
+        winterVillage
+      ];
 }
 
 class $AssetsLicensesGen {

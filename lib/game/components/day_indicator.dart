@@ -4,6 +4,7 @@ import 'package:flame/components.dart';
 import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:game_jam_2024/game/calendar/cubit/calendar_cubit.dart';
+import 'package:game_jam_2024/gen/assets.gen.dart';
 
 class DayIndicator extends PositionComponent
     with
@@ -12,6 +13,7 @@ class DayIndicator extends PositionComponent
   DayIndicator() : super(position: Vector2.all(16));
 
   TextComponent textComponent = TextComponent(
+    position: Vector2(20, 0),
     textRenderer: TextPaint(
       style: const TextStyle(
         fontSize: 48,
@@ -24,7 +26,13 @@ class DayIndicator extends PositionComponent
   Future<void> onLoad() async {
     await super.onLoad();
     textComponent.text = '${bloc.state.day}';
-    add(textComponent);
+    await addAll([
+      SpriteComponent(
+        sprite: await Sprite.load(Assets.images.calendar.path),
+        size: Vector2.all(64),
+      ),
+      textComponent,
+    ]);
   }
 
   @override
