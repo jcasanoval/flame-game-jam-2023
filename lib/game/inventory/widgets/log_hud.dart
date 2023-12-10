@@ -36,7 +36,10 @@ class LogHud extends StatelessWidget {
                               : Colors.white.withOpacity(0.5),
                         ),
                       ),
-                    Assets.images.qHint.image(width: 32, height: 32),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 12, right: 4),
+                      child: Assets.images.qHint.image(width: 32, height: 32),
+                    ),
                   ],
                 );
               },
