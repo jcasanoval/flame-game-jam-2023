@@ -5,7 +5,7 @@ import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:game_jam_2024/game/calendar/cubit/calendar_cubit.dart';
 
-const _secondsInDayNightCycle = 300;
+const _secondsInDayNightCycle = 10;
 
 class DarknessOverlayComponent extends PositionComponent
     with
@@ -22,6 +22,13 @@ class DarknessOverlayComponent extends PositionComponent
   double value = 0;
   bool isNight = false;
   int day = 1;
+
+  @override
+  void onGameResize(Vector2 size) {
+    super.onGameResize(size);
+    this.size.setFrom(size);
+    rectangleComponent.size = this.size;
+  }
 
   @override
   Future<void> onLoad() async {
@@ -41,6 +48,7 @@ class DarknessOverlayComponent extends PositionComponent
     if (percentageThroughNight == 1) {
       bloc.incrementDay();
     }
+
     final curvedValue = cubicBezier(
       Vector2.zero(),
       Vector2(0.5, 0),
