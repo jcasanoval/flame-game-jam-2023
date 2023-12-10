@@ -1,11 +1,16 @@
 import 'dart:async';
 
 import 'package:flame/components.dart';
+import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:game_jam_2024/game/calendar/cubit/calendar_cubit.dart';
 
 const _secondsInDayNightCycle = 300;
 
-class DarknessOverlayComponent extends PositionComponent {
+class DarknessOverlayComponent extends PositionComponent
+    with
+        FlameBlocReader<CalendarCubit, CalendarState>,
+        FlameBlocListenable<CalendarCubit, CalendarState> {
   DarknessOverlayComponent({
     super.size,
   }) : super();
@@ -17,7 +22,8 @@ class DarknessOverlayComponent extends PositionComponent {
   double value = 0;
 
   @override
-  FutureOr<void> onLoad() {
+  Future<void> onLoad() async {
+    await super.onLoad();
     rectangleComponent.size = size;
     add(rectangleComponent);
   }
@@ -26,7 +32,10 @@ class DarknessOverlayComponent extends PositionComponent {
   void update(double dt) {
     value += dt;
     final percentageThroughNight =
-        (value / _secondsInDayNightCycle).clamp(0, 0.9).toDouble();
+        (value / _secondsInDayNightCycle).clamp(0, 1).toDouble();
+    if (percentageThroughNight == 1) {
+      bloc.incrementDay();
+    }
     final curvedValue = cubicBezier(
       Vector2.zero(),
       Vector2(0.5, 0),
@@ -36,6 +45,11 @@ class DarknessOverlayComponent extends PositionComponent {
     ).y;
 
     rectangleComponent.setOpacity(curvedValue);
+  }
+
+  @override
+  void onNewState(CalendarState state) {
+    value = 0;
   }
 
   Vector2 cubicBezier(
