@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
@@ -63,7 +61,7 @@ class House extends PositionedEntity with CollisionCallbacks {
         position: Vector2(0, -55),
         size: Vector2(96, 20),
       ),
-      Fireplace(position: Vector2(0, 0)),
+      Fireplace(position: Vector2(0, -30)),
     ]);
   }
 }
