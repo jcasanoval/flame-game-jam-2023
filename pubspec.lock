@@ -245,10 +245,10 @@ packages:
     dependency: "direct dev"
     description:
       name: flame_test
-      sha256: "073933552b86282027109a071b689904074691975e77ebf7c653e9c506e6f6a0"
+      sha256: cdc64e72b65c8f372083808990d46cd1f6e4383f2d85a0d3cda68391d40dc373
       url: "https://pub.dev"
     source: hosted
-    version: "1.12.1"
+    version: "1.15.1"
   flame_tiled:
     dependency: "direct main"
     description:
